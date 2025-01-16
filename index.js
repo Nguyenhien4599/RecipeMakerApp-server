@@ -12,7 +12,7 @@ app.use(express.json());
   const openai = new OpenAI({ apiKey: process.env.API_KEY });
 
 
-  async function callOpenAIAPI() {
+  async function callOpenAIAPI(text) {
       try {
           const completion = await openai.chat.completions.create({
               model: 'gpt-4o-mini',
@@ -20,7 +20,7 @@ app.use(express.json());
                   { role: 'system', content: 'You are a helpful assistant.' },
                   {
                       role: 'user',
-                      content: 'giới thiệu về react native',
+                      content: text,
                   },
               ],
           });
@@ -33,7 +33,7 @@ app.use(express.json());
 
 app.post('/api', async (req, res) => {
   try {
-    const openAIResponse = await callOpenAIAPI(); 
+    const openAIResponse = await callOpenAIAPI(req.body.question); 
     res.status(200).json(openAIResponse);
   } catch (error) {
     res.status(500).json({ message: 'Error occurred', error: error.message });
@@ -41,5 +41,5 @@ app.post('/api', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server start !`);
 });
