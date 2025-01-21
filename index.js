@@ -31,6 +31,8 @@ app.use(express.json());
 }
 
 
+
+
 app.post('/api', async (req, res) => {
   try {
     const openAIResponse = await callOpenAIAPI(req.body.question); 
@@ -41,5 +43,5 @@ app.post('/api', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server start !`);
+  console.log(`Server start !1`);
 });
